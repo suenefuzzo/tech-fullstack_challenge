@@ -7,8 +7,8 @@ const clientSchema = z.object({
   password: z.string().max(120),
   telephone: z
     .string()
-    .refine((value) => /^\(\d{2}\) \d{4}-\d{4}$/.test(value), {
-      message: "Telefone inválido. Use o formato (XX) XXXX-XXXX",
+    .refine((value) => /^\(\d{2}\) \d{5}-\d{4}$/.test(value), {
+      message: "Telefone inválido. Use o formato (XX) XXXXX-XXXX",
     }),
   createdAt: z.string().nullish(),
   updatedAt: z.string().nullish(),

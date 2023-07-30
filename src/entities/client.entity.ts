@@ -34,7 +34,7 @@ class Client {
     }
   }
 
-  @Column()
+  @Column({ type: "varchar" })
   telephone: string;
 
   @CreateDateColumn({ type: "date" })
