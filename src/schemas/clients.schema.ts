@@ -4,6 +4,7 @@ const clientSchema = z.object({
   id: z.number(),
   full_name: z.string().max(100),
   email: z.string().email().max(45),
+  password: z.string().max(120),
   telephone: z
     .string()
     .refine((value) => /^\(\d{2}\) \d{4}-\d{4}$/.test(value), {
@@ -21,7 +22,9 @@ const clientSchemaRequest = clientSchema.omit({
     deletedAt: true
 })
 
-const clientSchemaResponse = clientSchema
+const clientSchemaResponse = clientSchema.omit({
+    password: true
+})
 
 export {
     clientSchema,

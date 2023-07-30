@@ -1,29 +1,50 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
+} from "typeorm";
+import { getRounds, hashSync } from "bcryptjs";
 
 @Entity("clients")
 class Client {
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
-    @PrimaryGeneratedColumn("increment")
-    id: number;
+  @Column({ type: "varchar", length: 100 })
+  full_name: string;
 
-    @Column({ type: "varchar", length: 100 })
-    full_name: string
+  @Column({ type: "varchar", length: 45, unique: true })
+  email: string;
 
-    @Column({ type: "varchar", length: 45, unique: true })
-    email: string
+  @Column({ type: "varchar", length: 120 })
+  password: string;
 
-    @Column()
-    telephone: string
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {
+    const isEncrypted: number = getRounds(this.password);
 
-    @CreateDateColumn({ type: "date" })
-    createdAt?: string | Date;
+    if (!isEncrypted) {
+      this.password = hashSync(this.password, 10);
+    }
+  }
 
-    @UpdateDateColumn({ type: "date" })
-    updatedAt?: string | Date;
-  
-    @DeleteDateColumn({ type: "date"})
-    deletedAt?: string | Date;
+  @Column()
+  telephone: string;
 
+  @CreateDateColumn({ type: "date" })
+  createdAt?: string | Date;
+
+  @UpdateDateColumn({ type: "date" })
+  updatedAt?: string | Date;
+
+  @DeleteDateColumn({ type: "date" })
+  deletedAt?: string | Date;
 }
 
-export default Client
+export default Client;
