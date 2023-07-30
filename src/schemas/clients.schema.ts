@@ -10,9 +10,21 @@ const clientSchema = z.object({
       message: "Telefone inválido. Use o formato (XX) XXXX-XXXX",
     }),
   createdAt: z.string().nullish(),
+  updatedAt: z.string().nullish(),
+  deletedAt: z.string().nullish(),
 });
 
 const clientSchemaRequest = clientSchema.omit({
     id: true,
     createdAt: true,
+    updatedAt: true,
+    deletedAt: true
 })
+
+const clientSchemaResponse = clientSchema
+
+export {
+    clientSchema,
+    clientSchemaRequest,
+    clientSchemaResponse
+}
