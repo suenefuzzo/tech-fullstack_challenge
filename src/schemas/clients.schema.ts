@@ -26,8 +26,11 @@ const clientSchemaResponse = clientSchema.omit({
     password: true
 })
 
+const manyClientsSchemaReponse = z.array(clientSchemaResponse)
+
 export {
     clientSchema,
     clientSchemaRequest,
-    clientSchemaResponse
+    clientSchemaResponse,
+    manyClientsSchemaReponse
 }
