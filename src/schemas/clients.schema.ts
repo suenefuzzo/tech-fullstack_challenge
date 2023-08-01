@@ -8,7 +8,7 @@ const clientSchema = z.object({
   telephone: z
     .string()
     .refine((value) => /^\(\d{2}\) \d{5}-\d{4}$/.test(value), {
-      message: "Telefone inválido. Use o formato (XX) XXXXX-XXXX",
+      message: "Invalid phone number. Use the format (XX) XXXXX-XXXX",
     }),
   createdAt: z.string().nullish(),
   updatedAt: z.string().nullish(),
@@ -16,27 +16,35 @@ const clientSchema = z.object({
 });
 
 const clientSchemaRequest = clientSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
-    deletedAt: true
-})
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true,
+});
 
 const clientSchemaResponse = clientSchema.omit({
-    password: true
-})
+  password: true,
+});
 
 const clientInfoResponse = clientSchema.omit({
   id: true,
   password: true,
   createdAt: true,
-  updatedAt: true, 
+  updatedAt: true,
   deletedAt: true
-})
+});
+
+const clientSchemaUpdate = clientSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true
+}).partial()
 
 export {
-    clientSchema,
-    clientSchemaRequest,
-    clientSchemaResponse,
-    clientInfoResponse
-}
+  clientSchema,
+  clientSchemaRequest,
+  clientSchemaResponse,
+  clientInfoResponse,
+  clientSchemaUpdate
+};
