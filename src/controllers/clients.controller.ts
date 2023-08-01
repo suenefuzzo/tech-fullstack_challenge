@@ -4,7 +4,7 @@ import {
   TClientResponse,
 } from "../interfaces/clients.interface";
 import { createClientService } from "../services/clients/createClient.service";
-// import listClientsService from "../services/clients/listClients.service";
+import getClientInfoService from "../services/clients/getClientInfo.service";
 
 const createClientController = async (
   request: Request,
@@ -17,16 +17,19 @@ const createClientController = async (
   return response.status(201).json(newClient);
 };
 
-// const listClientsController = async (
-//   request: Request,
-//   response: Response
-// ): Promise<Response> => {
-//   const listCLients: TClientResponse[] = await listClientsService();
+const getClientInfoController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const clientId = response.locals.clientId; 
 
-//   return response.json(listCLients);
-// };
+  const clientInfo = await getClientInfoService(clientId); 
 
-export { 
-  createClientController, 
-  // listClientsController 
+  if (!clientInfo) {
+    return response.status(404).json({ message: "Client not found" });
+  }
+
+  return response.json(clientInfo);
 };
+
+export { createClientController, getClientInfoController };

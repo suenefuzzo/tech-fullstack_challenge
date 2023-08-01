@@ -23,7 +23,7 @@ const validTokenMiddleware = async (
             })
         }
 
-        response.locals.clientId = decoded.id
+        response.locals.clientId = decoded.sub
 
         return next()
     })

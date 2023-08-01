@@ -26,11 +26,17 @@ const clientSchemaResponse = clientSchema.omit({
     password: true
 })
 
-const manyClientsSchemaReponse = z.array(clientSchemaResponse)
+const clientInfoResponse = clientSchema.omit({
+  id: true,
+  password: true,
+  createdAt: true,
+  updatedAt: true, 
+  deletedAt: true
+})
 
 export {
     clientSchema,
     clientSchemaRequest,
     clientSchemaResponse,
-    manyClientsSchemaReponse
+    clientInfoResponse
 }
