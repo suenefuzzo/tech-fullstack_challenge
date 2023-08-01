@@ -38,6 +38,14 @@ const contactSchemaUpdate = contactSchema
   })
   .partial();
 
+const contactInfoResponse = contactSchema.omit({
+  id: true,
+  password: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true
+})
+
 const manyContactsSchemaResponse = z.array(contactSchemaResponse);
 
 export {
@@ -45,5 +53,6 @@ export {
   contactSchemaRequest,
   contactSchemaResponse,
   contactSchemaUpdate,
+  contactInfoResponse,
   manyContactsSchemaResponse,
 };
