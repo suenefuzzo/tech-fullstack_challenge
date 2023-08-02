@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-import { TClientRequest } from "../interfaces/clients.interface";
+import { TClientInfoResponse, TClientRequest, TClientResponse } from "../interfaces/clients.interface";
 import { createClientService } from "../services/clients/createClient.service";
 import getClientInfoService from "../services/clients/getClientInfo.service";
+import updateClientService from "../services/clients/updateClient.service";
+import deleteClientService from "../services/clients/deleteClient.service";
 
 const createClientController = async (
   request: Request,
@@ -33,14 +35,25 @@ const updateClientController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  return response.json("entrou");
+  const clientData: TClientRequest = request.body
+
+  const clientId: number = Number(request.params.id)
+  console.log(clientId, "AAAAAAAAAAAAAAAAAAA")
+
+  const newClientData: TClientResponse = await updateClientService(clientData, clientId)
+
+  return response.json(newClientData)
 };
 
 const deleteClientController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  return response.json("entrou");
+  const clientId: number = Number(request.params.id)
+
+  await deleteClientService(clientId)
+
+  return response.status(204).send()
 };
 
 export {
