@@ -7,7 +7,7 @@ import {
   DeleteDateColumn,
   BeforeInsert,
   BeforeUpdate,
-  OneToMany
+  OneToMany,
 } from "typeorm";
 import { getRounds, hashSync } from "bcryptjs";
 import Contact from "./contacts.entity";
@@ -20,7 +20,7 @@ class Client {
   @Column({ type: "varchar", length: 100 })
   full_name: string;
 
-  @Column({ type: "varchar", length: 45, unique: true })
+  @Column({ type: "varchar", length: 45 })
   email: string;
 
   @Column({ type: "varchar", length: 120 })
@@ -48,8 +48,8 @@ class Client {
   @DeleteDateColumn({ type: "date" })
   deletedAt?: string | Date;
 
-  @OneToMany(() => Contact, contact => contact.client)
-  contacts: Contact[]
+  @OneToMany(() => Contact, (contact) => contact.client)
+  contacts: Contact[];
 }
 
 export default Client;

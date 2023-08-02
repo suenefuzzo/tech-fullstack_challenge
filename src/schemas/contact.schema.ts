@@ -23,18 +23,14 @@ const contactSchemaRequest = contactSchema.omit({
   deletedAt: true,
 });
 
-const contactSchemaResponse = contactSchema.omit({
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
-});
+const contactSchemaResponse = contactSchema
 
 const contactSchemaUpdate = contactSchema
   .omit({
     id: true,
     createdAt: true,
     updatedAt: true,
-    deletedAt: true
+    deletedAt: true,
   })
   .partial();
 
@@ -43,8 +39,8 @@ const contactInfoResponse = contactSchema.omit({
   password: true,
   createdAt: true,
   updatedAt: true,
-  deletedAt: true
-})
+  deletedAt: true,
+});
 
 const manyContactsSchemaResponse = z.array(contactSchemaResponse);
 
